@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>IncomeAndExpenseSearch</title>
+</head>
+<body>
+	<h3><a th:href="@{/}" th:text="HOME"></a></h3>
+
+	<br>
+	<br>
+	<form action="/btwDate" th:object="${uid}">
+		Starting Date<input type="date" name="date" /> Ending Date<input
+			type="date" name="date2" /> <input type="hidden" name="uid"
+			th:value="${session.uid}" readonly /> <input type="submit"
+			value="submit" />
+	</form>
+	<br>
+	<hr>
+	<br>
+	<table border="1" style="border-collapse: collapse">
+		<thead>
+			<tr>
+				<th width="200px" height="50px">UID</th>
+				<th width="200px" height="50px">DATE</th>
+				<th width="200px" height="50px">DESCRIPTION</th>
+				<th width="200px" height="50px">INCOME</th>
+				<th width="200px" height="50px">EXPENSE</th>
+				<!--  <th width="150px" height="30px" colspan="2">Action</th>-->
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="l:${list}">
+				<td th:text="${l.uid}" width="150px" height="40px" align="center"></td>
+				<td th:text="${l.date}" width="150px" height="40px" align="center"></td>
+				<td th:text="${l.desc}" width="150px" height="40px" align="center"></td>
+				<td th:text="${l.incAmt}" width="150px" height="40px" align="center"></td>
+				<td th:text="${l.expAmt}" width="150px" height="40px" align="center"></td>
+
+
+
+
+
+				<!--  <td  width="150px" height="30px"><a th:href="@{/update(id=${l.id},uid=${l.uid})}">Update</a></td>
+				<td  width="150px" height="30px"><a th:href="@{/delete(id=${l.id},uid=${l.uid})}">Delete</a></td>-->
+			</tr>
+			<tr>
+				<th width="150px" height="40px" align="center" colspan="3">TOTAL</th>
+				
+
+				<th th:text="${IncSum}" width="150px" height="40px"></th>
+				<th th:text="${ExpSum}" width="150px" height="40px"></th>
+			</tr>
+		</tbody>
+
+	</table>
+</body>
+</html>

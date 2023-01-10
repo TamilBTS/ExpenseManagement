@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Report</title>
+<script>
+function myFunction() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+function myFunction2() {
+	  // Declare variables
+	  var input, filter, table, tr, td, i, txtValue;
+	  input = document.getElementById("myInput2");
+	  filter = input.value.toUpperCase();
+	  table = document.getElementById("myTable");
+	  tr = table.getElementsByTagName("tr");
+
+	  // Loop through all table rows, and hide those who don't match the search query
+	  for (i = 0; i < tr.length; i++) {
+	    td = tr[i].getElementsByTagName("td")[1];
+	    if (td) {
+	      txtValue = td.textContent || td.innerText;
+	      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	        tr[i].style.display = "";
+	      } else {
+	        tr[i].style.display = "none";
+	      }
+	    }
+	  }
+	}
+</script>
+<style>
+#myInput {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 30%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+#myInput2 {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 30%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+</style>
+</head>
+<body>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+<input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search for Date">
+
+<table border="1" style="border-collapse:collapse" id="myTable">
+		<thead>
+			<tr>
+				<th width="150px" height="40px">UID</th>
+				<th width="150px" height="40px">DATE</th>
+				<th width="150px" height="40px">DESCRIPTION</th>
+				<th width="150px" height="40px">INCOME</th>
+				<th width="150px" height="40px">EXPENSE</th>
+				<th width="150px" height="40px" colspan="2">ACTION</th>
+				
+			</tr>
+		</thead>
+		<tbody align="center">
+			<tr th:each="l:${list}" >
+				<td th:text="${l.uid}" width="150px" height="40px"></td>
+				<td th:text="${l.date}" width="150px" height="40px"></td>
+				<td th:text="${l.desc}" width="150px" height="40px"></td>
+				<td th:text="${l.incAmt}" width="150px" height="40px"></td>
+				<td th:text="${l.expAmt}" width="150px" height="40px"></td>
+				<td  width="150px" height="30px"><a th:href="@{/update(id=${l.id},uid=${l.uid})}">Update</a></td>
+				<td  width="150px" height="30px"><a th:href="@{/delete(id=${l.id},uid=${l.uid})}">Delete</a></td>
+			</tr>
+		</tbody>
+
+	</table>
+	<h3><a th:href="@{/}" th:text="HOME"></a></h3>
+</body>
+</html>
